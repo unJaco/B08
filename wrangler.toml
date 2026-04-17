@@ -1,0 +1,4 @@
+# Cloudflare Pages — deploy via Git integration, this file is optional.
+# Build command: hugo
+# Build output directory: public
+# Environment variable: HUGO_VERSION = 0.150.1

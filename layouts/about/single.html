@@ -1,0 +1,16 @@
+{{ define "main" }}
+{{ $img := resources.Get "portrait.jpeg" }}
+{{ $img = $img.Process "resize 320x webp" }}
+<article class="about">
+  <div class="about-header">
+    <div class="about-intro">
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.tagline }}<p>{{ . }}</p>{{ end }}
+    </div>
+    {{ if $img }}
+    <img src="{{ $img.RelPermalink }}" alt="Jacob Meilutat" class="portrait">
+    {{ end }}
+  </div>
+  {{ .Content }}
+</article>
+{{ end }}
