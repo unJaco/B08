@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/mining-demo.css" />
+
+<div class="mining-demo" data-mining-demo>
+  <div class="md-inbox" data-inbox></div>
+
+  <div class="md-panel">
+    <div class="md-panel__empty" data-empty>Select a headline to run the analysis →</div>
+
+    <div class="md-panel__content" data-content hidden>
+      <div class="md-meta" data-sel-meta></div>
+      <h4 class="md-headline" data-sel-headline></h4>
+
+      <button type="button" class="md-analyze" data-analyze>Analyze with AI</button>
+
+      <div class="md-pipeline">
+        <span class="md-step" data-step>Classify</span>
+        <span class="md-arrow">→</span>
+        <span class="md-step" data-step>Enrich</span>
+        <span class="md-arrow">→</span>
+        <span class="md-step" data-step>Recommend</span>
+      </div>
+
+      <div class="md-result" data-result></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/mining-demo.js"></script>
