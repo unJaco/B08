@@ -1,0 +1,299 @@
+{{ define "main" }}
+<article class="pirc-page">
+  <h1>B08 — Pirc Defense</h1>
+  <p class="pirc-sub">Classical System · ECO B08</p>
+
+  <p class="pirc-intro">
+    The Pirc is a hypermodern defense. Instead of contesting the center with pawns, Black invites White to build one — then undermines it from the flanks. The Classical System (4.Nf3) is White's most principled reply: solid, flexible, and still dangerous.
+  </p>
+  <p class="pirc-intro">
+    Use <kbd>→</kbd> / <kbd>←</kbd> or the buttons to step through the opening. After the last move, you can play it out yourself.
+  </p>
+
+  <div class="chess-wrapper">
+    <div id="chessboard"></div>
+    <div class="chess-sidebar">
+      <div id="annotation-box">
+        <p id="annotation-text">Press → to begin.</p>
+      </div>
+      <div class="guide-controls">
+        <button id="prev-btn">←</button>
+        <span id="step-info">0 / 12</span>
+        <button id="next-btn">→</button>
+      </div>
+      <div id="free-play-section" style="display:none">
+        <button id="play-btn">Play from here</button>
+        <button id="reset-btn">Reset</button>
+      </div>
+      <p id="game-status"></p>
+    </div>
+  </div>
+</article>
+
+<style>
+.pirc-page { padding-bottom: 3rem; }
+.pirc-sub { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.5rem; }
+.pirc-intro { margin-bottom: 0.75rem; font-size: 0.88rem; }
+.pirc-intro kbd {
+  background: var(--border);
+  border-radius: 3px;
+  padding: 0 4px;
+  font-family: var(--font);
+  font-size: 0.8rem;
+}
+
+.chess-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+#chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  width: 320px;
+  height: 320px;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+}
+
+.sq {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+.sq-light { background: #2a2a2a; }
+.sq-dark  { background: #1a1a1a; }
+.sq-selected { background: #2a4a6a !important; }
+.sq-target::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(168, 192, 232, 0.5);
+}
+.sq-target.has-piece::after {
+  width: 38px;
+  height: 38px;
+  border-radius: 0;
+  background: rgba(168, 192, 232, 0.2);
+  border: 2px solid rgba(168, 192, 232, 0.5);
+}
+.piece-w { color: #f0f0f0; text-shadow: 0 0 2px #000; }
+.piece-b { color: #1a1a1a; text-shadow: 0 0 2px #888, 0 0 4px #888; }
+
+.chess-sidebar {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#annotation-box {
+  min-height: 3.5rem;
+  font-size: 0.85rem;
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+.guide-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.guide-controls button, #free-play-section button {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.guide-controls button:hover, #free-play-section button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+#step-info { color: var(--muted); font-size: 0.8rem; }
+
+#free-play-section {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#game-status { font-size: 0.8rem; color: var(--accent); }
+</style>
+
+<script type="module">
+import { Chess } from '/js/chess.esm.js';
+
+const PIECES = {
+  wp:'♙', wr:'♖', wn:'♘', wb:'♗', wq:'♕', wk:'♔',
+  bp:'♟', br:'♜', bn:'♞', bb:'♝', bq:'♛', bk:'♚',
+};
+
+const GUIDE = [
+  { move: 'e4',  text: '1. e4 — White stakes the center.' },
+  { move: 'd6',  text: '1... d6 — The Pirc begins. Black delays confrontation and waits.' },
+  { move: 'd4',  text: '2. d4 — A full pawn center. White commits.' },
+  { move: 'Nf6', text: '2... Nf6 — Pressuring e4 from the flank, not the center.' },
+  { move: 'Nc3', text: '3. Nc3 — Defending e4 with a piece.' },
+  { move: 'g6',  text: '3... g6 — The defining move of the Pirc. The fianchetto begins.' },
+  { move: 'Nf3', text: '4. Nf3 — Classical System. Principled development over aggression.' },
+  { move: 'Bg7', text: '4... Bg7 — The Pirc bishop. It watches the long diagonal and breathes.' },
+  { move: 'Be2', text: '5. Be2 — Solid. White prepares castling without committing early.' },
+  { move: 'O-O', text: '5... O-O — Black castles. The king is safe on g8 behind the fianchetto.' },
+  { move: 'O-O', text: '6. O-O — Both sides have castled. Development is complete.' },
+  { move: 'c6',  text: '6... c6 — Preparing ...d5. The counterattack on the center begins.' },
+];
+
+let chess = new Chess();
+let guideStep = 0;
+let selected = null;
+let legalTargets = [];
+let freePlay = false;
+
+function sqName(row, col) {
+  return String.fromCharCode(97 + col) + (8 - row);
+}
+
+function renderBoard() {
+  const b = chess.board();
+  const el = document.getElementById('chessboard');
+  el.innerHTML = '';
+
+  for (let row = 0; row < 8; row++) {
+    for (let col = 0; col < 8; col++) {
+      const sq = sqName(row, col);
+      const cell = document.createElement('div');
+      const isLight = (row + col) % 2 === 0;
+      cell.className = 'sq ' + (isLight ? 'sq-light' : 'sq-dark');
+      cell.dataset.sq = sq;
+
+      if (selected === sq) cell.classList.add('sq-selected');
+      if (legalTargets.includes(sq)) cell.classList.add('sq-target');
+
+      const piece = b[row][col];
+      if (piece) {
+        cell.textContent = PIECES[piece.color + piece.type] || '';
+        cell.classList.add('has-piece', 'piece-' + piece.color);
+      }
+
+      cell.addEventListener('click', () => handleClick(sq, b[row][col]));
+      el.appendChild(cell);
+    }
+  }
+
+  const status = document.getElementById('game-status');
+  if (chess.isCheckmate()) {
+    status.textContent = (chess.turn() === 'w' ? 'Black' : 'White') + ' wins.';
+  } else if (chess.isDraw()) {
+    status.textContent = 'Draw.';
+  } else if (chess.isCheck()) {
+    status.textContent = 'Check!';
+  } else {
+    status.textContent = '';
+  }
+}
+
+function handleClick(sq, piece) {
+  if (!freePlay) return;
+
+  if (selected) {
+    if (legalTargets.includes(sq)) {
+      chess.move({ from: selected, to: sq, promotion: 'q' });
+      selected = null;
+      legalTargets = [];
+      renderBoard();
+      return;
+    }
+    if (piece && piece.color === chess.turn()) {
+      selected = sq;
+      legalTargets = chess.moves({ square: sq, verbose: true }).map(m => m.to);
+      renderBoard();
+      return;
+    }
+    selected = null;
+    legalTargets = [];
+    renderBoard();
+    return;
+  }
+
+  if (piece && piece.color === chess.turn()) {
+    selected = sq;
+    legalTargets = chess.moves({ square: sq, verbose: true }).map(m => m.to);
+    renderBoard();
+  }
+}
+
+function nextMove() {
+  if (guideStep >= GUIDE.length) return;
+  chess.move(GUIDE[guideStep].move);
+  document.getElementById('annotation-text').textContent = GUIDE[guideStep].text;
+  document.getElementById('step-info').textContent = (guideStep + 1) + ' / ' + GUIDE.length;
+  guideStep++;
+  if (guideStep === GUIDE.length) {
+    document.getElementById('free-play-section').style.display = 'flex';
+  }
+  renderBoard();
+}
+
+function prevMove() {
+  if (guideStep === 0) return;
+  chess.undo();
+  guideStep--;
+  freePlay = false;
+  selected = null;
+  legalTargets = [];
+  document.getElementById('free-play-section').style.display = 'none';
+  document.getElementById('annotation-text').textContent =
+    guideStep > 0 ? GUIDE[guideStep - 1].text : 'Press → to begin.';
+  document.getElementById('step-info').textContent = guideStep + ' / ' + GUIDE.length;
+  renderBoard();
+}
+
+function startFreePlay() {
+  freePlay = true;
+  document.getElementById('annotation-text').textContent =
+    chess.turn() === 'b' ? 'Your turn — play as Black.' : 'Your turn — play as White.';
+}
+
+function resetGame() {
+  chess = new Chess();
+  guideStep = 0;
+  selected = null;
+  legalTargets = [];
+  freePlay = false;
+  document.getElementById('annotation-text').textContent = 'Press → to begin.';
+  document.getElementById('step-info').textContent = '0 / ' + GUIDE.length;
+  document.getElementById('free-play-section').style.display = 'none';
+  renderBoard();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderBoard();
+  document.getElementById('prev-btn').addEventListener('click', prevMove);
+  document.getElementById('next-btn').addEventListener('click', nextMove);
+  document.getElementById('play-btn').addEventListener('click', startFreePlay);
+  document.getElementById('reset-btn').addEventListener('click', resetGame);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') nextMove();
+    if (e.key === 'ArrowLeft') prevMove();
+  });
+});
+</script>
+{{ end }}
