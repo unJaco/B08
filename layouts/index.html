@@ -1,5 +1,11 @@
 {{ define "main" }}
 <section class="home">
+  <div class="kicker">B08 · software studio · Berlin</div>
   {{ .Content }}
+  <div class="links">
+    <a href="/projects/">→ projects</a>
+    <a href="/about/">→ about</a>
+    <a href="mailto:{{ .Site.Params.email }}">→ get in touch</a>
+  </div>
 </section>
 {{ end }}

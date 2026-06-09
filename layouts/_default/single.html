@@ -1,7 +1,24 @@
 {{ define "main" }}
+{{ if eq .Section "projects" }}
+<article class="case">
+  <a href="/projects/" class="back">← projects</a>
+  <div class="case-head">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
+    <div class="meta-row">
+      {{ with .Params.year }}<span><b>year</b>{{ . }}</span>{{ end }}
+      {{ with .Params.role }}<span><b>role</b>{{ . }}</span>{{ end }}
+      {{ with .Params.stack }}<span><b>stack</b>{{ delimit . " · " }}</span>{{ end }}
+      {{ with .Params.status }}<span><b>status</b>{{ if eq . "wip" }}in progress{{ else }}{{ . }}{{ end }}</span>{{ end }}
+    </div>
+  </div>
+  {{ .Content }}
+</article>
+{{ else }}
 <article>
   <h1>{{ .Title }}</h1>
   {{ with .Params.description }}<p class="lead">{{ . }}</p>{{ end }}
   {{ .Content }}
 </article>
+{{ end }}
 {{ end }}

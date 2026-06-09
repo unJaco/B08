@@ -1,13 +1,19 @@
-baseURL = "https://b08.dev"
+baseURL = "https://b08.io"
 languageCode = "en"
 title = "B08"
 
 [markup.goldmark.extensions]
   table = true
 
+[markup.goldmark.renderer]
+  unsafe = true
+
 [params]
   description = "Jacob Meilutat — Backend & App Developer, Berlin"
   author = "Jacob Meilutat"
+  email = "jacob@b08.io"
+  github = "https://github.com/unJaco"
+  linkedin = "https://www.linkedin.com/in/jacob-meilutat/"
 
 [menu]
   [[menu.main]]

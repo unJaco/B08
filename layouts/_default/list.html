@@ -1,13 +1,48 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ .Content }}
-<ul class="post-list">
-  {{ range .Pages }}
-  <li>
-    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    {{ with .Params.description }}<span>{{ . }}</span>{{ end }}
-    {{ with .Params.stack }}<span class="stack">{{ delimit . " · " }}</span>{{ end }}
-  </li>
+{{ $contracts := where .Pages "Params.role" "contract" }}
+{{ $personal := where .Pages "Params.role" "solo" }}
+<section>
+  <div class="page-head">
+    <h1>{{ .Title }}</h1>
+    <span class="meta">{{ len .Pages }} entries</span>
+  </div>
+
+  {{ if $contracts }}
+  <div class="project-group-label">Contract</div>
+  <ul class="post-list">
+    {{ range $contracts.ByWeight }}
+    <li>
+      <div class="title-col">
+        <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+        {{ with .Params.description }}<div class="desc">{{ . }}</div>{{ end }}
+        {{ with .Params.stack }}<div class="stack">{{ delimit . " · " }}</div>{{ end }}
+      </div>
+      <div class="right-col">
+        {{ with .Params.status }}<span class="status {{ . }}">{{ if eq . "wip" }}in progress{{ else }}{{ . }}{{ end }}</span>{{ end }}
+      </div>
+    </li>
+    {{ end }}
+  </ul>
   {{ end }}
-</ul>
+
+  {{ if and $contracts $personal }}<hr class="project-divider">{{ end }}
+
+  {{ if $personal }}
+  <div class="project-group-label">Personal</div>
+  <ul class="post-list">
+    {{ range $personal.ByWeight }}
+    <li>
+      <div class="title-col">
+        <a href="{{ .RelPermalink }}" class="title">{{ .Title }}</a>
+        {{ with .Params.description }}<div class="desc">{{ . }}</div>{{ end }}
+        {{ with .Params.stack }}<div class="stack">{{ delimit . " · " }}</div>{{ end }}
+      </div>
+      <div class="right-col">
+        {{ with .Params.status }}<span class="status {{ . }}">{{ if eq . "wip" }}in progress{{ else }}{{ . }}{{ end }}</span>{{ end }}
+      </div>
+    </li>
+    {{ end }}
+  </ul>
+  {{ end }}
+</section>
 {{ end }}
