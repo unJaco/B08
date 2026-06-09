@@ -1,0 +1,20 @@
+<link rel="stylesheet" href="/css/leaflet.css" />
+<link rel="stylesheet" href="/css/route-demo.css" />
+
+<div class="route-demo" data-route-demo>
+  <div class="route-demo__bar">
+    <button type="button" class="rd-btn" data-action="block">Block streets</button>
+    <button type="button" class="rd-btn" data-action="clear">Clear blocks</button>
+    <button type="button" class="rd-btn rd-btn--primary" data-action="route">Recalculate</button>
+    <span class="route-demo__summary" data-summary></span>
+  </div>
+  <div class="route-demo__map" data-map></div>
+  <p class="route-demo__hint" data-hint>
+    Drag the <b>green</b> (start) and <b>red</b> (destination) markers. Toggle
+    <b>Block streets</b>, then click the map to mark roads the crane can't use —
+    the route reroutes around every blocked segment.
+  </p>
+</div>
+
+<script src="/js/leaflet.js"></script>
+<script src="/js/route-demo.js" defer></script>
