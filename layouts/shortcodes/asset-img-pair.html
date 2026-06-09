@@ -1,0 +1,10 @@
+{{ $left := .Get "left" }}
+{{ $right := .Get "right" }}
+{{ $leftAlt := .Get "left-alt" | default "" }}
+{{ $rightAlt := .Get "right-alt" | default "" }}
+{{ $imgLeft := resources.Get $left }}
+{{ $imgRight := resources.Get $right }}
+<div class="project-img-pair">
+  {{ if $imgLeft }}<img src="{{ $imgLeft.RelPermalink }}" alt="{{ $leftAlt }}" class="project-img-pair__img">{{ end }}
+  {{ if $imgRight }}<img src="{{ $imgRight.RelPermalink }}" alt="{{ $rightAlt }}" class="project-img-pair__img">{{ end }}
+</div>

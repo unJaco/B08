@@ -1,0 +1,7 @@
+{{ $src := .Get "src" }}
+{{ $alt := .Get "alt" | default "" }}
+{{ $wide := .Get "wide" | default false }}
+{{ $img := resources.Get $src }}
+{{ if $img }}
+<img src="{{ $img.RelPermalink }}" alt="{{ $alt }}" class="project-img{{ if $wide }} project-img--wide{{ end }}">
+{{ end }}
