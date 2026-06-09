@@ -6,6 +6,7 @@
     <div class="about-intro">
       <h1>{{ .Title }}</h1>
       {{ with .Params.tagline }}<p>{{ . }}</p>{{ end }}
+      {{ with .Params.intro }}<p>{{ $.RenderString . }}</p>{{ end }}
     </div>
     {{ if $img }}
     <img src="{{ $img.RelPermalink }}" alt="Jacob Meilutat" class="portrait">

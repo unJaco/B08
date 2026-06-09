@@ -2,8 +2,6 @@
 title: "B08"
 ---
 
-AI & App Developer based in Berlin.
+B08 is a software studio for AI-driven solutions based in Berlin. Building backend systems, mobile applications and custom AI tooling.
 
-Currently also studying Philosophy and Sociology — somewhere between systems thinking and Hegel.
-
-[projects](/projects/) — [about](/about/)
+{{< muted >}}Run solo by <a href="/about"> Jacob Meilutat</a>. Currently open to engagements and contract work.{{< /muted >}}
