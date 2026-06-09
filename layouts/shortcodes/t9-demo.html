@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/css/t9-demo.css" />
+
+<div class="t9-demo" data-t9-demo>
+  <div class="t9-phone" tabindex="0" aria-label="T9 Chess demo — use D-pad or arrow keys">
+    <div class="t9-screen">
+      <div class="t9-status" data-status>White to move</div>
+      <div class="t9-board" data-board></div>
+    </div>
+    <div class="t9-keys">
+      <div class="t9-dpad">
+        <button type="button" class="t9-key t9-key--up" data-dir="up" aria-label="Up">▲</button>
+        <button type="button" class="t9-key t9-key--left" data-dir="left" aria-label="Left">◀</button>
+        <button type="button" class="t9-key t9-key--ok" data-dir="ok" aria-label="Select / move">OK</button>
+        <button type="button" class="t9-key t9-key--right" data-dir="right" aria-label="Right">▶</button>
+        <button type="button" class="t9-key t9-key--down" data-dir="down" aria-label="Down">▼</button>
+      </div>
+    </div>
+    <div class="t9-brand">T9 CHESS</div>
+  </div>
+
+  <div class="t9-demo__side">
+    <p class="t9-demo__hint">
+      Move the cursor with the <b>D-pad</b>, press <b>OK</b> to pick up a piece
+      and again on a highlighted square to move it. Arrow keys + Enter work too.
+    </p>
+    <button type="button" class="t9-reset" data-reset>Reset game</button>
+  </div>
+</div>
+
+<script src="/js/chess.min.js"></script>
+<script src="/js/t9-demo.js"></script>

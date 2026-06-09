@@ -1,0 +1,151 @@
+/* T9 Chess interactive demo — keypad phone mockup with a D-pad driven board */
+.t9-demo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  align-items: flex-start;
+  margin: 2rem 0;
+}
+
+/* phone body */
+.t9-phone {
+  width: 264px;
+  flex-shrink: 0;
+  background: linear-gradient(#222428, #16181c);
+  border: 1px solid #34383f;
+  border-radius: 22px;
+  padding: 16px 14px 18px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+.t9-phone:focus-visible { border-color: var(--accent); }
+
+/* screen */
+.t9-screen {
+  background: #1a1d22;
+  border: 1px solid #3a3f47;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 16px;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.t9-status {
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+  min-height: 1em;
+}
+.t9-status.is-over { color: var(--accent); }
+
+/* board */
+.t9-board {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #3a4048, inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.t9-sq {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.t9-sq--light { background: #a9b1bc; }
+.t9-sq--dark { background: #6c7681; }
+.t9-sq--white {
+  color: #fcfcfc;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55), 0 0 1px rgba(0, 0, 0, 0.4);
+}
+.t9-sq--black {
+  color: #15181c;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.t9-sq.is-cursor { box-shadow: inset 0 0 0 3px var(--accent); z-index: 1; }
+.t9-sq.is-selected { box-shadow: inset 0 0 0 3px #5fb36a; z-index: 1; }
+.t9-sq.is-check { box-shadow: inset 0 0 0 3px #d4795f; z-index: 1; }
+.t9-sq.is-target::after {
+  content: "";
+  position: absolute;
+  width: 32%;
+  height: 32%;
+  border-radius: 50%;
+  background: rgba(95, 179, 106, 0.75);
+}
+
+/* keypad */
+.t9-keys { display: flex; justify-content: center; }
+.t9-dpad {
+  display: grid;
+  grid-template-columns: repeat(3, 52px);
+  grid-template-rows: repeat(3, 42px);
+  gap: 6px;
+}
+.t9-key {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: linear-gradient(#242424, #181818);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.12s ease, border-color 0.12s ease;
+}
+.t9-key:hover { color: var(--fg); border-color: var(--faint); }
+.t9-key:active { background: #101010; transform: translateY(1px); }
+.t9-key--up { grid-column: 2; grid-row: 1; }
+.t9-key--left { grid-column: 1; grid-row: 2; }
+.t9-key--ok {
+  grid-column: 2;
+  grid-row: 2;
+  font-size: 0.68rem;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.t9-key--right { grid-column: 3; grid-row: 2; }
+.t9-key--down { grid-column: 2; grid-row: 3; }
+
+.t9-brand {
+  text-align: center;
+  font-size: 0.58rem;
+  letter-spacing: 0.32em;
+  color: var(--faint);
+  margin-top: 14px;
+}
+
+/* side panel */
+.t9-demo__side { flex: 1; min-width: 190px; padding-top: 3rem; }
+.t9-demo__hint {
+  font-size: 0.78rem;
+  line-height: 1.65;
+  color: var(--faint);
+  margin: 0 0 1.1rem;
+}
+.t9-demo__hint b { color: var(--muted); font-weight: 600; }
+.t9-reset {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 0.4rem 0.7rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.t9-reset:hover { color: var(--fg); border-color: var(--faint); }
+
+@media (max-width: 560px) {
+  .t9-demo { justify-content: center; }
+  .t9-demo__side { padding-top: 0; }
+}
