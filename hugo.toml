@@ -1,6 +1,8 @@
 baseURL = "https://b08.io"
 languageCode = "en"
 title = "B08"
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
 
 [markup.goldmark.extensions]
   table = true
