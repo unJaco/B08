@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+
+  <!-- mono-logo mark (2x2) -->
+  <g fill="#ededed" transform="translate(96,150)">
+    <rect x="0"  y="0"  width="38" height="38" rx="6" opacity="0.92"/>
+    <rect x="48" y="0"  width="38" height="38" rx="6" opacity="0.30"/>
+    <rect x="0"  y="48" width="38" height="38" rx="6" opacity="0.30"/>
+    <rect x="48" y="48" width="38" height="38" rx="6" opacity="0.92"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="94" y="395" font-family="'IBM Plex Mono','Courier New',monospace"
+        font-size="150" font-weight="700" letter-spacing="6" fill="#ededed">B08</text>
+
+  <!-- tagline -->
+  <text x="98" y="452" font-family="'IBM Plex Mono','Courier New',monospace"
+        font-size="34" fill="#c8c8c8">AI-driven software studio · Berlin</text>
+
+  <!-- accent underline -->
+  <rect x="98" y="480" width="132" height="3" rx="1.5" fill="#bcd0f0"/>
+</svg>
