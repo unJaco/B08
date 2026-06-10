@@ -5,11 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  {{ $favicon := resources.Get "pawn.png" }}
-  {{ if $favicon }}
-  <link rel="icon" type="image/png" href="{{ $favicon.RelPermalink }}" sizes="32x32">
-  <link rel="apple-touch-icon" href="{{ $favicon.RelPermalink }}">
-  {{ end }}
+  {{ if .Params.private }}<meta name="robots" content="noindex, nofollow">{{ end }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="color-scheme" content="dark">
+
+  {{/* Open Graph / social preview cards */}}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ with resources.Get "og.png" }}<meta property="og:image" content="{{ .Permalink }}">{{ end }}
+  <meta name="twitter:card" content="{{ with resources.Get "og.png" }}summary_large_image{{ else }}summary{{ end }}">
+
+  {{/* Favicons & app icons */}}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
