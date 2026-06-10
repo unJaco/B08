@@ -10,7 +10,7 @@
   "use strict";
 
   var VALHALLA = "https://valhalla1.openstreetmap.de/route";
-  var COSTING = "truck"; // heavy vehicle, fits the crane use case
+  var COSTING = "auto"; // faster on the public Valhalla server than "truck"
   var BLOCK_HALF_M = 70; // half edge length of a blocked square, in metres
 
   function init(root) {
@@ -123,7 +123,14 @@
       summaryEl.innerHTML = html;
     }
 
+    var routing = false;
+    var pendingRoute = false;
+
     function calcRoute() {
+      // Coalesce rapid calls: keep one request in flight, run once more after.
+      if (routing) { pendingRoute = true; return; }
+      routing = true;
+
       var s = startMarker.getLatLng();
       var d = endMarker.getLatLng();
       var body = {
@@ -169,6 +176,11 @@
         })
         .finally(function () {
           routeBtn.disabled = false;
+          routing = false;
+          if (pendingRoute) {
+            pendingRoute = false;
+            calcRoute();
+          }
         });
     }
 
