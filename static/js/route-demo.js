@@ -13,6 +13,31 @@
   var COSTING = "auto"; // faster on the public Valhalla server than "truck"
   var BLOCK_HALF_M = 70; // half edge length of a blocked square, in metres
 
+  // Fetch JSON with an 8s timeout and up to 3 attempts on transient failures.
+  // The public Valhalla server occasionally returns 502; those gateway errors
+  // carry no CORS headers, so the browser surfaces them as network errors.
+  function fetchRouteJSON(url, attempt) {
+    attempt = attempt || 1;
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 8000);
+    return fetch(url, { signal: controller.signal })
+      .then(function (res) {
+        clearTimeout(timer);
+        if (res.status === 400) { var e = new Error("noroute"); e.code = 400; throw e; }
+        if (!res.ok) { var t = new Error("server " + res.status); t.transient = true; throw t; }
+        return res.json();
+      })
+      .catch(function (err) {
+        clearTimeout(timer);
+        var transient = err.transient || err.name === "AbortError" || err instanceof TypeError;
+        if (transient && attempt < 3) {
+          return new Promise(function (r) { setTimeout(r, 600 * attempt); })
+            .then(function () { return fetchRouteJSON(url, attempt + 1); });
+        }
+        throw err;
+      });
+  }
+
   function init(root) {
     if (root.dataset.rdInit) return;
     root.dataset.rdInit = "1";
@@ -150,14 +175,10 @@
       routeBtn.disabled = true;
       setSummary("routing…");
 
-      fetch(VALHALLA + "?json=" + encodeURIComponent(JSON.stringify(body)))
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        })
+      fetchRouteJSON(VALHALLA + "?json=" + encodeURIComponent(JSON.stringify(body)))
         .then(function (data) {
           var leg = data && data.trip && data.trip.legs && data.trip.legs[0];
-          if (!leg) throw new Error("no route");
+          if (!leg) { var e = new Error("noroute"); e.code = 400; throw e; }
           drawRoute(decodePolyline(leg.shape, 6));
           var sum = data.trip.summary;
           setSummary(
@@ -171,8 +192,12 @@
                 : "")
           );
         })
-        .catch(function () {
-          setSummary("no route found — try fewer blocks");
+        .catch(function (err) {
+          setSummary(
+            err && err.code === 400
+              ? "no route found — try fewer blocks"
+              : "routing server busy — try again"
+          );
         })
         .finally(function () {
           routeBtn.disabled = false;
