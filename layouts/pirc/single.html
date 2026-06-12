@@ -4,7 +4,7 @@
   <p class="pirc-sub">Classical System · ECO B08</p>
 
   <p class="pirc-intro">
-    The Pirc is a hypermodern defense. Instead of contesting the center with pawns, Black invites White to build one — then undermines it from the flanks. The Classical System (4.Nf3) is White's most principled reply: solid, flexible, and still dangerous.
+    This studio is named after a chess opening. In the <em>Encyclopaedia of Chess Openings</em>, every line gets a code — and <strong>B08</strong> is the code for the Pirc Defense, Classical System: my favourite opening.
   </p>
   <p class="pirc-intro">
     Use <kbd>→</kbd> / <kbd>←</kbd> or the buttons to step through the opening. After the last move, you can play it out yourself.
@@ -53,43 +53,49 @@
 #chessboard {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   width: 320px;
   height: 320px;
   flex-shrink: 0;
-  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #3a4048, inset 0 0 0 1px rgba(0, 0, 0, 0.2);
 }
 
 .sq {
-  width: 40px;
-  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
+  line-height: 1;
   cursor: pointer;
   user-select: none;
   position: relative;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-.sq-light { background: #2a2a2a; }
-.sq-dark  { background: #1a1a1a; }
-.sq-selected { background: #2a4a6a !important; }
+.sq-light { background: #a9b1bc; }
+.sq-dark  { background: #6c7681; }
+.piece-w { color: #fcfcfc; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55), 0 0 1px rgba(0, 0, 0, 0.4); }
+.piece-b { color: #15181c; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22); }
+
+.sq-selected { box-shadow: inset 0 0 0 3px #5fb36a; z-index: 1; }
+.sq-check { box-shadow: inset 0 0 0 3px #d4795f; z-index: 1; }
 .sq-target::after {
   content: '';
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 32%;
+  height: 32%;
   border-radius: 50%;
-  background: rgba(168, 192, 232, 0.5);
+  background: rgba(95, 179, 106, 0.75);
 }
 .sq-target.has-piece::after {
-  width: 38px;
-  height: 38px;
+  width: 100%;
+  height: 100%;
   border-radius: 0;
-  background: rgba(168, 192, 232, 0.2);
-  border: 2px solid rgba(168, 192, 232, 0.5);
+  background: transparent;
+  box-shadow: inset 0 0 0 3px rgba(95, 179, 106, 0.7);
 }
-.piece-w { color: #f0f0f0; text-shadow: 0 0 2px #000; }
-.piece-b { color: #1a1a1a; text-shadow: 0 0 2px #888, 0 0 4px #888; }
 
 .chess-sidebar {
   flex: 1;
@@ -135,14 +141,26 @@
   flex-wrap: wrap;
 }
 
-#game-status { font-size: 0.8rem; color: var(--accent); }
+#game-status { font-size: 0.8rem; color: var(--fg); }
+.turn-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-right: 0.45rem;
+  vertical-align: middle;
+  border: 1px solid var(--faint);
+}
+.turn-w { background: #fcfcfc; }
+.turn-b { background: #15181c; }
 </style>
 
 <script type="module">
 import { Chess } from '/js/chess.esm.js';
 
+// Solid glyphs for both colors; color is applied via CSS (matches T9 board).
 const PIECES = {
-  wp:'♙', wr:'♖', wn:'♘', wb:'♗', wq:'♕', wk:'♔',
+  wp:'♟', wr:'♜', wn:'♞', wb:'♝', wq:'♛', wk:'♚',
   bp:'♟', br:'♜', bn:'♞', bb:'♝', bq:'♛', bk:'♚',
 };
 
@@ -191,6 +209,9 @@ function renderBoard() {
       if (piece) {
         cell.textContent = PIECES[piece.color + piece.type] || '';
         cell.classList.add('has-piece', 'piece-' + piece.color);
+        if (piece.type === 'k' && piece.color === chess.turn() && chess.isCheck()) {
+          cell.classList.add('sq-check');
+        }
       }
 
       cell.addEventListener('click', () => handleClick(sq, b[row][col]));
@@ -203,10 +224,13 @@ function renderBoard() {
     status.textContent = (chess.turn() === 'w' ? 'Black' : 'White') + ' wins.';
   } else if (chess.isDraw()) {
     status.textContent = 'Draw.';
-  } else if (chess.isCheck()) {
-    status.textContent = 'Check!';
+  } else if (freePlay) {
+    const turn = chess.turn();
+    status.innerHTML = '<span class="turn-dot turn-' + turn + '"></span>' +
+      (turn === 'w' ? 'White' : 'Black') + ' to move' +
+      (chess.isCheck() ? ' · check' : '');
   } else {
-    status.textContent = '';
+    status.textContent = chess.isCheck() ? 'Check!' : '';
   }
 }
 
@@ -269,7 +293,8 @@ function prevMove() {
 function startFreePlay() {
   freePlay = true;
   document.getElementById('annotation-text').textContent =
-    chess.turn() === 'b' ? 'Your turn — play as Black.' : 'Your turn — play as White.';
+    'You\'re on your own now — play it out from here.';
+  renderBoard();
 }
 
 function resetGame() {

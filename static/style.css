@@ -314,8 +314,15 @@ footer {
 }
 footer .sig { display: flex; flex-direction: column; gap: 0.2rem; }
 footer .sig .eco { color: var(--faint); letter-spacing: 0.04em; }
-.footer-easter-egg { color: var(--fg); font-size: 0.72rem; }
-.footer-easter-egg:hover { color: var(--fg); text-decoration: none; }
+.footer-easter-egg { color: var(--fg); font-size: 0.72rem; transition: color 0.15s ease; }
+.footer-easter-egg::after {
+  content: " →";
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.footer-easter-egg:hover { color: var(--accent); text-decoration: none; }
+.footer-easter-egg:hover::after { opacity: 1; }
 .footer-legal { display: flex; gap: 1rem; }
 .footer-legal a { color: var(--faint); font-size: 0.72rem; }
 .footer-legal a:hover { color: var(--fg); text-decoration: none; }
