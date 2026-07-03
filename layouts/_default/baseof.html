@@ -26,6 +26,10 @@
   <link rel="manifest" href="/site.webmanifest">
 
   <link rel="stylesheet" href="/style.css">
+
+  {{ if and hugo.IsProduction .Site.Params.goatcounter }}
+  <script data-goatcounter="{{ .Site.Params.goatcounter }}" async src="//gc.zgo.at/count.js"></script>
+  {{ end }}
 </head>
 <body>
   <header>

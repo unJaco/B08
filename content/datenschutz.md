@@ -24,9 +24,13 @@ Auf der Projektseite „Navigator" wird eine interaktive Karte angezeigt. Erst b
 
 Cloudflare und CARTO können Daten in die USA übertragen. Diese Übermittlung erfolgt auf Grundlage geeigneter Garantien im Sinne von Art. 46 DSGVO.
 
-## Keine Cookies, kein Tracking
+## Reichweitenmessung (GoatCounter)
 
-Diese Website setzt keine Cookies und verwendet keine Analyse- oder Trackingdienste. Alle Skripte und Schriften werden direkt von dieser Website ausgeliefert; externe Verbindungen entstehen nur durch die oben genannte Karten- und Routing-Demo.
+Zur anonymen Reichweitenmessung nutzt diese Website **GoatCounter**. Der Dienst arbeitet **cookielos** und speichert **keine personenbezogenen Daten**: Es werden keine IP-Adressen dauerhaft gespeichert und keine Besucher über Seiten oder Websites hinweg wiedererkannt oder verfolgt. Erfasst werden lediglich aggregierte Angaben wie die aufgerufene Seite, der Referrer, der ungefähre Standort (Land) sowie Browser- und Gerätetyp. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer datensparsamen Reichweitenmessung). Weitere Informationen: [goatcounter.com/help/privacy](https://www.goatcounter.com/help/privacy).
+
+## Keine Cookies
+
+Diese Website setzt **keine Cookies**. Alle Skripte und Schriften werden direkt von dieser Website ausgeliefert; externe Verbindungen entstehen nur durch die oben genannte Karten- und Routing-Demo sowie die cookielose Reichweitenmessung.
 
 ## Ihre Rechte
 

@@ -16,6 +16,7 @@ disableKinds = ['taxonomy', 'term']
   email = "jacob@b08.io"
   github = "https://github.com/unJaco"
   linkedin = "https://www.linkedin.com/in/jacob-meilutat/"
+  goatcounter = "https://b08.goatcounter.com/count"
 
 [menu]
   [[menu.main]]
