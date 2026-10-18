@@ -32,30 +32,37 @@ Component surfaces (logo gradient, T9 phone, keypad, chess board/pieces) have th
 - **Weights:** `--fw-regular` 400 · `--fw-medium` 500 · `--fw-semibold` 600 · `--fw-bold` 700
 - **Base:** `html { font-size: 16px }`, body line-height 1.7
 
-Font sizes are named `--fs-N` = N/100 rem (`--fs-72` = 0.72rem). Core scale:
+Font-size scale:
 
 | Token | rem | px | Role |
 |---|---|---|---|
-| `--fs-72` | 0.72 | 11.5 | meta, labels, footer, status, kicker |
-| `--fs-78` | 0.78 | 12.5 | section h2 (uppercase), buttons, back link |
-| `--fs-82` | 0.82 | 13.1 | nav, list descriptions |
-| `--fs-85` | 0.85 | 13.6 | secondary copy, tables |
-| `--fs-92` | 0.92 | 14.7 | article body (p, li) |
-| `--fs-95` | 0.95 | 15.2 | list titles, page head |
-| `--fs-100` | 1 | 16 | base, home h1, logo |
-| `--fs-110` | 1.1 | 17.6 | article / case h1 |
+| `--fs-3xs` | 0.6 | 9.6 | micro labels (demos) |
+| `--fs-2xs` | 0.68 | 10.9 | status badge, chips, small demo text |
+| `--fs-xs` | 0.72 | 11.5 | meta, labels, footer, kicker |
+| `--fs-sm` | 0.8 | 12.8 | nav, section h2 (uppercase), buttons, descriptions |
+| `--fs-md` | 0.85 | 13.6 | secondary copy, tables, leads |
+| `--fs-lg` | 0.92 | 14.7 | article body, list titles |
+| `--fs-xl` | 1 | 16 | base, home h1, logo |
+| `--fs-2xl` | 1.1 | 17.6 | article / case h1 |
 
-The demos also use one-off sizes between those steps (`--fs-58` … `--fs-90`), plus chess glyphs at `--fs-150` and `--fs-190`.
+Chess glyphs are sized relative to their board: `--fs-glyph-sm` (1.5rem, T9) and `--fs-glyph-lg` (1.9rem, Pirc).
+Don't add sizes between these steps. Pick the nearest one.
 
 ### Spacing
 
-`--sp-N` = N/100 rem (`--sp-150` = 1.5rem), `--sp-Npx` = N px (used only inside the T9 phone mockup and `kbd`).
-The common steps are `--sp-25`, `--sp-50`, `--sp-100`, `--sp-150`, `--sp-200` and `--sp-300`. Everything else is a one-off.
+`--sp-N` = N px at the 16px root, defined in rem on a 4px grid. The steps are `2 · 4 · 6 · 8 · 12 · 16 · 20 · 24 · 32 · 48`.
+Use it for every margin, padding and gap, including the T9 phone mockup.
 
 ### Radii
 
-`--radius-N` = N px: `2 · 3 · 4 · 5 · 6 · 8 · 12 · 16 · 20 · 22`, plus `--radius-full` (50 %, for dots and the portrait).
-Typical choices: buttons and logo `6`, demo frames `12`, images `8`/`16`, pills `20`.
+| Token | Value | Use |
+|---|---|---|
+| `--radius-sm` | 4px | chips, tags, kbd, chess boards |
+| `--radius-md` | 6px | buttons, logo, images, keys |
+| `--radius-lg` | 12px | demo frames |
+| `--radius-xl` | 20px | phone body, image pairs |
+| `--radius-pill` | 999px | pills, progress bars |
+| `--radius-full` | 50% | dots, portrait |
 
 ### Layout
 
@@ -66,10 +73,6 @@ Typical choices: buttons and logo `6`, demo frames `12`, images `8`/`16`, pills 
 - `theme-color` in `baseof.html` and the colors in `site.webmanifest` are `#0a0a0a`, because CSS variables can't be used there. Change them together with `--bg`.
 - Component geometry (widths/heights such as the board size, phone width, image max-width), letter-spacing, line-heights and transitions stay local.
 - `route-demo.js` reads `--green-bright`, `--coral` and `--accent` at runtime, because Leaflet writes colors into SVG attributes.
-
-## Consolidation backlog
-
-The scale grew organically: there are 23 font sizes and about 30 spacing values, several only 0.02rem apart. They were tokenized 1:1 so nothing would shift visually. Folding them into roughly 8 sizes and roughly 10 spacing steps is a separate, visible change.
 
 ## Templates & building blocks
 

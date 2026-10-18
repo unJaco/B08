@@ -31,21 +31,21 @@
 </article>
 
 <style>
-.pirc-page { padding-bottom: var(--sp-300); }
-.pirc-sub { color: var(--muted); font-size: var(--fs-80); margin-bottom: var(--sp-150); }
-.pirc-intro { margin-bottom: var(--sp-75); font-size: var(--fs-88); }
+.pirc-page { padding-bottom: var(--sp-48); }
+.pirc-sub { color: var(--muted); font-size: var(--fs-sm); margin-bottom: var(--sp-24); }
+.pirc-intro { margin-bottom: var(--sp-12); font-size: var(--fs-md); }
 .pirc-intro kbd {
   background: var(--border);
-  border-radius: var(--radius-3);
-  padding: 0 var(--sp-4px);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--sp-4);
   font-family: var(--font);
-  font-size: var(--fs-80);
+  font-size: var(--fs-sm);
 }
 
 .chess-wrapper {
   display: flex;
-  gap: var(--sp-150);
-  margin-top: var(--sp-200);
+  gap: var(--sp-24);
+  margin-top: var(--sp-32);
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -57,7 +57,7 @@
   width: 320px;
   height: 320px;
   flex-shrink: 0;
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 0 0 1px var(--board-ring), inset 0 0 0 1px var(--black-20);
 }
@@ -66,7 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--fs-190);
+  font-size: var(--fs-glyph-lg);
   line-height: 1;
   cursor: pointer;
   user-select: none;
@@ -102,12 +102,12 @@
   min-width: 180px;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-100);
+  gap: var(--sp-16);
 }
 
 #annotation-box {
   min-height: 3.5rem;
-  font-size: var(--fs-85);
+  font-size: var(--fs-md);
   color: var(--fg);
   line-height: 1.6;
 }
@@ -115,7 +115,7 @@
 .guide-controls {
   display: flex;
   align-items: center;
-  gap: var(--sp-75);
+  gap: var(--sp-12);
 }
 
 .guide-controls button, #free-play-section button {
@@ -123,8 +123,8 @@
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font);
-  font-size: var(--fs-85);
-  padding: var(--sp-25) var(--sp-75);
+  font-size: var(--fs-md);
+  padding: var(--sp-4) var(--sp-12);
   cursor: pointer;
   transition: border-color 0.15s;
 }
@@ -133,21 +133,21 @@
   color: var(--accent);
 }
 
-#step-info { color: var(--muted); font-size: var(--fs-80); }
+#step-info { color: var(--muted); font-size: var(--fs-sm); }
 
 #free-play-section {
   display: flex;
-  gap: var(--sp-50);
+  gap: var(--sp-8);
   flex-wrap: wrap;
 }
 
-#game-status { font-size: var(--fs-80); color: var(--fg); }
+#game-status { font-size: var(--fs-sm); color: var(--fg); }
 .turn-dot {
   display: inline-block;
   width: 9px;
   height: 9px;
   border-radius: var(--radius-full);
-  margin-right: var(--sp-45);
+  margin-right: var(--sp-8);
   vertical-align: middle;
   border: 1px solid var(--faint);
 }

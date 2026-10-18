@@ -2,9 +2,9 @@
 .t9-demo {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--sp-175);
+  gap: var(--sp-32);
   align-items: flex-start;
-  margin: var(--sp-200) 0;
+  margin: var(--sp-32) 0;
 }
 
 /* phone body */
@@ -13,8 +13,8 @@
   flex-shrink: 0;
   background: linear-gradient(var(--phone-top), var(--phone-bottom));
   border: 1px solid var(--phone-edge);
-  border-radius: var(--radius-22);
-  padding: var(--sp-16px) var(--sp-14px) var(--sp-18px);
+  border-radius: var(--radius-xl);
+  padding: var(--sp-16) var(--sp-12) var(--sp-16);
   box-shadow: 0 12px 40px var(--black-55), inset 0 1px 0 var(--white-05);
   outline: none;
 }
@@ -24,17 +24,17 @@
 .t9-screen {
   background: var(--phone-screen);
   border: 1px solid var(--phone-screen-edge);
-  border-radius: var(--radius-8);
-  padding: var(--sp-10px);
-  margin-bottom: var(--sp-16px);
+  border-radius: var(--radius-md);
+  padding: var(--sp-8);
+  margin-bottom: var(--sp-16);
   box-shadow: inset 0 1px 4px var(--black-50);
 }
 .t9-status {
-  font-size: var(--fs-60);
+  font-size: var(--fs-3xs);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: var(--sp-6px);
+  margin-bottom: var(--sp-6);
   min-height: 1em;
 }
 .t9-status.is-over { color: var(--accent); }
@@ -46,7 +46,7 @@
   grid-template-rows: repeat(8, 1fr);
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: var(--radius-3);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   box-shadow: 0 0 0 1px var(--board-ring), inset 0 0 0 1px var(--black-20);
 }
@@ -55,7 +55,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--fs-150);
+  font-size: var(--fs-glyph-sm);
   line-height: 1;
   user-select: none;
   -webkit-font-smoothing: antialiased;
@@ -89,15 +89,15 @@
   display: grid;
   grid-template-columns: repeat(3, 52px);
   grid-template-rows: repeat(3, 42px);
-  gap: var(--sp-6px);
+  gap: var(--sp-6);
 }
 .t9-key {
   font-family: var(--font);
-  font-size: var(--fs-78);
+  font-size: var(--fs-sm);
   color: var(--muted);
   background: linear-gradient(var(--key-top), var(--key-bottom));
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius-8);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: color 0.12s ease, border-color 0.12s ease;
 }
@@ -108,7 +108,7 @@
 .t9-key--ok {
   grid-column: 2;
   grid-row: 2;
-  font-size: var(--fs-68);
+  font-size: var(--fs-2xs);
   color: var(--accent);
   border-color: var(--accent);
 }
@@ -117,29 +117,29 @@
 
 .t9-brand {
   text-align: center;
-  font-size: var(--fs-58);
+  font-size: var(--fs-3xs);
   letter-spacing: 0.32em;
   color: var(--faint);
-  margin-top: var(--sp-14px);
+  margin-top: var(--sp-12);
 }
 
 /* side panel */
-.t9-demo__side { flex: 1; min-width: 190px; padding-top: var(--sp-300); }
+.t9-demo__side { flex: 1; min-width: 190px; padding-top: var(--sp-48); }
 .t9-demo__hint {
-  font-size: var(--fs-78);
+  font-size: var(--fs-sm);
   line-height: 1.65;
   color: var(--faint);
-  margin: 0 0 var(--sp-110);
+  margin: 0 0 var(--sp-16);
 }
 .t9-demo__hint b { color: var(--muted); font-weight: var(--fw-semibold); }
 .t9-reset {
   font-family: var(--font);
-  font-size: var(--fs-78);
+  font-size: var(--fs-sm);
   color: var(--muted);
   background: transparent;
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius-6);
-  padding: var(--sp-40) var(--sp-70);
+  border-radius: var(--radius-md);
+  padding: var(--sp-6) var(--sp-12);
   cursor: pointer;
   transition: color 0.15s ease, border-color 0.15s ease;
 }
