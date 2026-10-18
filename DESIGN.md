@@ -28,7 +28,7 @@ Component surfaces (logo gradient, T9 phone, keypad, chess board/pieces) have th
 
 ### Type
 
-- **Font:** `--font`, i.e. IBM Plex Mono with Courier New and monospace as fallbacks. Nothing loads it as a webfont, so it only shows if it is installed locally.
+- **Font:** `--font`, i.e. IBM Plex Mono. It is self-hosted from `static/fonts/` (latin subset; 400, 400 italic, 500, 600, 700; OFL) and declared via `@font-face` in `tokens.css`. The regular weight is preloaded in `baseof.html`. Courier New and monospace are fallbacks only. Don't load it from Google Fonts (GDPR).
 - **Weights:** `--fw-regular` 400 · `--fw-medium` 500 · `--fw-semibold` 600 · `--fw-bold` 700
 - **Base:** `html { font-size: 16px }`, body line-height 1.7
 
