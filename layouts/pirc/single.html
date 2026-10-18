@@ -31,21 +31,21 @@
 </article>
 
 <style>
-.pirc-page { padding-bottom: 3rem; }
-.pirc-sub { color: var(--muted); font-size: 0.8rem; margin-bottom: 1.5rem; }
-.pirc-intro { margin-bottom: 0.75rem; font-size: 0.88rem; }
+.pirc-page { padding-bottom: var(--sp-300); }
+.pirc-sub { color: var(--muted); font-size: var(--fs-80); margin-bottom: var(--sp-150); }
+.pirc-intro { margin-bottom: var(--sp-75); font-size: var(--fs-88); }
 .pirc-intro kbd {
   background: var(--border);
-  border-radius: 3px;
-  padding: 0 4px;
+  border-radius: var(--radius-3);
+  padding: 0 var(--sp-4px);
   font-family: var(--font);
-  font-size: 0.8rem;
+  font-size: var(--fs-80);
 }
 
 .chess-wrapper {
   display: flex;
-  gap: 1.5rem;
-  margin-top: 2rem;
+  gap: var(--sp-150);
+  margin-top: var(--sp-200);
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -57,16 +57,16 @@
   width: 320px;
   height: 320px;
   flex-shrink: 0;
-  border-radius: 3px;
+  border-radius: var(--radius-3);
   overflow: hidden;
-  box-shadow: 0 0 0 1px #3a4048, inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 0 1px var(--board-ring), inset 0 0 0 1px var(--black-20);
 }
 
 .sq {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.9rem;
+  font-size: var(--fs-190);
   line-height: 1;
   cursor: pointer;
   user-select: none;
@@ -74,27 +74,27 @@
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-.sq-light { background: #a9b1bc; }
-.sq-dark  { background: #6c7681; }
-.piece-w { color: #fcfcfc; text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55), 0 0 1px rgba(0, 0, 0, 0.4); }
-.piece-b { color: #15181c; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22); }
+.sq-light { background: var(--board-light); }
+.sq-dark  { background: var(--board-dark); }
+.piece-w { color: var(--piece-white); text-shadow: 0 1px 1px var(--black-55), 0 0 1px var(--black-40); }
+.piece-b { color: var(--piece-black); text-shadow: 0 1px 0 var(--white-22); }
 
-.sq-selected { box-shadow: inset 0 0 0 3px #5fb36a; z-index: 1; }
-.sq-check { box-shadow: inset 0 0 0 3px #d4795f; z-index: 1; }
+.sq-selected { box-shadow: inset 0 0 0 3px var(--green-bright); z-index: 1; }
+.sq-check { box-shadow: inset 0 0 0 3px var(--coral); z-index: 1; }
 .sq-target::after {
   content: '';
   position: absolute;
   width: 32%;
   height: 32%;
-  border-radius: 50%;
-  background: rgba(95, 179, 106, 0.75);
+  border-radius: var(--radius-full);
+  background: var(--green-bright-75);
 }
 .sq-target.has-piece::after {
   width: 100%;
   height: 100%;
   border-radius: 0;
   background: transparent;
-  box-shadow: inset 0 0 0 3px rgba(95, 179, 106, 0.7);
+  box-shadow: inset 0 0 0 3px var(--green-bright-70);
 }
 
 .chess-sidebar {
@@ -102,12 +102,12 @@
   min-width: 180px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--sp-100);
 }
 
 #annotation-box {
   min-height: 3.5rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-85);
   color: var(--fg);
   line-height: 1.6;
 }
@@ -115,7 +115,7 @@
 .guide-controls {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--sp-75);
 }
 
 .guide-controls button, #free-play-section button {
@@ -123,8 +123,8 @@
   border: 1px solid var(--border);
   color: var(--fg);
   font-family: var(--font);
-  font-size: 0.85rem;
-  padding: 0.25rem 0.75rem;
+  font-size: var(--fs-85);
+  padding: var(--sp-25) var(--sp-75);
   cursor: pointer;
   transition: border-color 0.15s;
 }
@@ -133,26 +133,26 @@
   color: var(--accent);
 }
 
-#step-info { color: var(--muted); font-size: 0.8rem; }
+#step-info { color: var(--muted); font-size: var(--fs-80); }
 
 #free-play-section {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--sp-50);
   flex-wrap: wrap;
 }
 
-#game-status { font-size: 0.8rem; color: var(--fg); }
+#game-status { font-size: var(--fs-80); color: var(--fg); }
 .turn-dot {
   display: inline-block;
   width: 9px;
   height: 9px;
-  border-radius: 50%;
-  margin-right: 0.45rem;
+  border-radius: var(--radius-full);
+  margin-right: var(--sp-45);
   vertical-align: middle;
   border: 1px solid var(--faint);
 }
-.turn-w { background: #fcfcfc; }
-.turn-b { background: #15181c; }
+.turn-w { background: var(--piece-white); }
+.turn-b { background: var(--piece-black); }
 </style>
 
 <script type="module">

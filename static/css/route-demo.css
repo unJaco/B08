@@ -1,8 +1,8 @@
 /* Interactive routing demo (Navigator case study) */
 .route-demo {
-  margin: 2rem 0;
+  margin: var(--sp-200) 0;
   border: 1px solid var(--border-strong);
-  border-radius: 12px;
+  border-radius: var(--radius-12);
   overflow: hidden;
   background: var(--bg);
 }
@@ -11,27 +11,27 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 0.8rem;
+  gap: var(--sp-50);
+  padding: var(--sp-70) var(--sp-80);
   border-bottom: 1px solid var(--border);
 }
 
 .rd-btn {
   font-family: var(--font);
-  font-size: 0.78rem;
+  font-size: var(--fs-78);
   color: var(--muted);
   background: transparent;
   border: 1px solid var(--border-strong);
-  border-radius: 6px;
-  padding: 0.4rem 0.7rem;
+  border-radius: var(--radius-6);
+  padding: var(--sp-40) var(--sp-70);
   cursor: pointer;
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 .rd-btn:hover { color: var(--fg); border-color: var(--faint); }
 .rd-btn.is-active {
   color: var(--bg);
-  background: #d4795f;
-  border-color: #d4795f;
+  background: var(--coral);
+  border-color: var(--coral);
 }
 .rd-btn--primary { color: var(--accent); border-color: var(--accent); }
 .rd-btn--primary:hover { color: var(--bg); background: var(--accent); }
@@ -39,11 +39,11 @@
 
 .route-demo__summary {
   margin-left: auto;
-  font-size: 0.75rem;
+  font-size: var(--fs-75);
   color: var(--faint);
   font-variant-numeric: tabular-nums;
 }
-.route-demo__summary b { color: var(--fg); font-weight: 400; }
+.route-demo__summary b { color: var(--fg); font-weight: var(--fw-regular); }
 
 .route-demo__map {
   height: 380px;
@@ -54,29 +54,29 @@
 .route-demo__map.is-blocking { cursor: crosshair; }
 
 .route-demo__hint {
-  padding: 0.65rem 0.8rem;
-  font-size: 0.74rem;
+  padding: var(--sp-65) var(--sp-80);
+  font-size: var(--fs-74);
   line-height: 1.6;
   color: var(--faint);
   border-top: 1px solid var(--border);
   margin: 0;
 }
-.route-demo__hint b { color: var(--muted); font-weight: 600; }
+.route-demo__hint b { color: var(--muted); font-weight: var(--fw-semibold); }
 
 /* markers */
 .rd-pin span {
   display: block;
   width: 16px;
   height: 16px;
-  border-radius: 50%;
-  border: 2px solid #fff;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--white);
   background: var(--c);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px var(--black-50);
 }
 
 /* Leaflet attribution toned down for the dark theme */
 .route-demo .leaflet-control-attribution {
-  background: rgba(10, 10, 10, 0.7);
+  background: var(--bg-70);
   color: var(--faint);
 }
 .route-demo .leaflet-control-attribution a { color: var(--muted); }

@@ -1,0 +1,136 @@
+/* Design tokens: the single source for colors, type, spacing and radii.
+   Loaded before style.css and the demo stylesheets. See DESIGN.md. */
+:root {
+  /* ── color: base ─────────────────────────────── */
+  --bg: #0a0a0a;
+  --fg: #ededed;
+  --muted: #c8c8c8;
+  --faint: #9a9a9a;
+  --accent: #bcd0f0;
+  --border: #262626;
+  --border-strong: #383838;
+  --white: #fff;
+
+  /* ── color: signal ───────────────────────────── */
+  --green: #7fb28a;        /* status shipped, signal funding */
+  --green-bright: #5fb36a; /* chess selection / targets, map start */
+  --amber: #d4b679;        /* status wip, signal leadership, priority medium */
+  --coral: #d4795f;        /* check, blocked street, priority high */
+  --blue: #6ea8d8;         /* signal expansion */
+  --violet: #c79bd8;       /* signal M&A */
+
+  /* ── color: alpha variants ───────────────────── */
+  --accent-04: rgba(188, 208, 240, 0.04);
+  --accent-05: rgba(188, 208, 240, 0.05);
+  --accent-08: rgba(188, 208, 240, 0.08);
+  --green-bright-70: rgba(95, 179, 106, 0.7);
+  --green-bright-75: rgba(95, 179, 106, 0.75);
+  --bg-70: rgba(10, 10, 10, 0.7);
+  --black-20: rgba(0, 0, 0, 0.2);
+  --black-40: rgba(0, 0, 0, 0.4);
+  --black-50: rgba(0, 0, 0, 0.5);
+  --black-55: rgba(0, 0, 0, 0.55);
+  --black-60: rgba(0, 0, 0, 0.6);
+  --white-04: rgba(255, 255, 255, 0.04);
+  --white-05: rgba(255, 255, 255, 0.05);
+  --white-22: rgba(255, 255, 255, 0.22);
+
+  /* ── color: component surfaces ───────────────── */
+  --logo-top: #1e1e1e;
+  --logo-bottom: #141414;
+  --key-top: #242424;
+  --key-bottom: #181818;
+  --key-pressed: #101010;
+  --phone-top: #222428;
+  --phone-bottom: #16181c;
+  --phone-edge: #34383f;
+  --phone-screen: #1a1d22;
+  --phone-screen-edge: #3a3f47;
+  --board-light: #a9b1bc;
+  --board-dark: #6c7681;
+  --board-ring: #3a4048;
+  --piece-white: #fcfcfc;
+  --piece-black: #15181c;
+
+  /* ── type ────────────────────────────────────── */
+  --font: "IBM Plex Mono", "Courier New", monospace;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* font sizes: --fs-N = N/100 rem (root = 16px) */
+  --fs-58: 0.58rem;
+  --fs-60: 0.6rem;
+  --fs-62: 0.62rem;
+  --fs-66: 0.66rem;
+  --fs-68: 0.68rem;
+  --fs-70: 0.7rem;
+  --fs-72: 0.72rem;   /* meta, labels, footer */
+  --fs-74: 0.74rem;
+  --fs-75: 0.75rem;
+  --fs-76: 0.76rem;
+  --fs-78: 0.78rem;   /* section h2, small UI, buttons */
+  --fs-80: 0.8rem;
+  --fs-82: 0.82rem;   /* nav, descriptions */
+  --fs-84: 0.84rem;
+  --fs-85: 0.85rem;   /* secondary copy */
+  --fs-88: 0.88rem;
+  --fs-90: 0.9rem;
+  --fs-92: 0.92rem;   /* article body */
+  --fs-95: 0.95rem;   /* list titles */
+  --fs-100: 1rem;     /* base, home h1 */
+  --fs-110: 1.1rem;   /* article h1 */
+  --fs-150: 1.5rem;   /* chess glyphs (T9 demo) */
+  --fs-190: 1.9rem;   /* chess glyphs (Pirc) */
+
+  /* ── spacing: --sp-N = N/100 rem, --sp-Npx = N px ── */
+  --sp-10: 0.1rem;
+  --sp-12: 0.12rem;
+  --sp-18: 0.18rem;
+  --sp-20: 0.2rem;
+  --sp-25: 0.25rem;
+  --sp-30: 0.3rem;
+  --sp-35: 0.35rem;
+  --sp-40: 0.4rem;
+  --sp-45: 0.45rem;
+  --sp-50: 0.5rem;
+  --sp-60: 0.6rem;
+  --sp-65: 0.65rem;
+  --sp-70: 0.7rem;
+  --sp-75: 0.75rem;
+  --sp-80: 0.8rem;
+  --sp-90: 0.9rem;
+  --sp-100: 1rem;
+  --sp-110: 1.1rem;
+  --sp-120: 1.2rem;
+  --sp-125: 1.25rem;
+  --sp-150: 1.5rem;
+  --sp-160: 1.6rem;
+  --sp-175: 1.75rem;
+  --sp-180: 1.8rem;
+  --sp-200: 2rem;
+  --sp-300: 3rem;
+  --sp-4px: 4px;
+  --sp-6px: 6px;
+  --sp-10px: 10px;
+  --sp-14px: 14px;
+  --sp-16px: 16px;
+  --sp-18px: 18px;
+
+  /* ── radii ───────────────────────────────────── */
+  --radius-2: 2px;
+  --radius-3: 3px;
+  --radius-4: 4px;
+  --radius-5: 5px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;   /* pills */
+  --radius-22: 22px;   /* phone body */
+  --radius-full: 50%;
+
+  /* ── layout ──────────────────────────────────── */
+  --max: 680px;
+}

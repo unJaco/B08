@@ -13,6 +13,12 @@
   var COSTING = "auto"; // faster on the public Valhalla server than "truck"
   var BLOCK_HALF_M = 70; // half edge length of a blocked square, in metres
 
+  // Colors come from the design tokens (static/css/tokens.css). Leaflet writes
+  // them into SVG attributes, where var() doesn't resolve, so read them here.
+  function token(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
   // Fetch JSON with an 8s timeout and up to 3 attempts on transient failures.
   // The public Valhalla server occasionally returns 502; those gateway errors
   // carry no CORS headers, so the browser surfaces them as network errors.
@@ -76,11 +82,11 @@
     }
 
     var startMarker = L.marker(startLL, {
-      icon: pin("#5fb36a"),
+      icon: pin(token("--green-bright")),
       draggable: true,
     }).addTo(map);
     var endMarker = L.marker(endLL, {
-      icon: pin("#d4795f"),
+      icon: pin(token("--coral")),
       draggable: true,
     }).addTo(map);
 
@@ -112,9 +118,9 @@
         return [p[1], p[0]];
       });
       var layer = L.polygon(latlngs, {
-        color: "#d4795f",
+        color: token("--coral"),
         weight: 1,
-        fillColor: "#d4795f",
+        fillColor: token("--coral"),
         fillOpacity: 0.35,
       }).addTo(map);
       blocks.push({ layer: layer, ring: ring });
@@ -213,7 +219,7 @@
     function drawRoute(latlngs) {
       if (routeLine) map.removeLayer(routeLine);
       routeLine = L.polyline(latlngs, {
-        color: "#bcd0f0",
+        color: token("--accent"),
         weight: 4,
         opacity: 0.9,
       }).addTo(map);
